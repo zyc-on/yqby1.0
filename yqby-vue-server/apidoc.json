@@ -1,0 +1,13 @@
+{
+  "name": "yqby-vue-server",
+  "version": "1.0.0",
+  "description": "yqby-vue-server 项目API文档",
+  "title": "yqby-vue-server API",
+  "url": "http://localhost:2999/",
+  "sampleUrl": "http://localhost:2999/",
+  "forceLanguage": "zh-cn",
+  "template": {
+    "withCompare": true,
+    "withGenerator": true
+  }
+}
