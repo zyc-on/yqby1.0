@@ -11,20 +11,31 @@ const routes = [
     path: '/',
     name: 'main',
     component: Main,
-    children:[
-      {path:'/user',component:User},
+    children: [
+      { path: '/user', component: User },
+      {
+        path: '/logout',
+        name: 'logout',
+        redirect: '/user'
+      },
+      {
+        path: '/aboutdev',
+        name: 'aboutdev',
+        component: User
+      }
     ]
   },
   {
-    path:'/login',
-    name:'login',
-    component:Login,
+    path: '/login',
+    name: 'login',
+    component: Login
   },
+
   {
-    path:'/addgoods',
-    name:'addgoods',
-    component:AddGoods,
-    props:true
+    path: '/addgoods',
+    name: 'addgoods',
+    component: AddGoods,
+    props: true
   }
 ]
 

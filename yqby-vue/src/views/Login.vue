@@ -4,15 +4,44 @@
     <van-image id="logo" :src="icon" type="contain" />
     <van-tabs v-model="activeTab" swipeable animated>
       <van-tab title="登录" name="login">
-        <van-field type="text" label="账号" v-model="user.account" placeholder="输入账号" />
-        <van-field type="password" label="密码" v-model="user.password" placeholder="输入密码" />
-        <van-button plain block class="submit-button" @click="login">登录</van-button>
+        <van-field
+          type="text"
+          label="账号"
+          v-model="user.account"
+          placeholder="输入账号"
+        />
+        <van-field
+          type="password"
+          label="密码"
+          v-model="user.password"
+          placeholder="输入密码"
+        />
+        <van-button plain block class="submit-button" @click="login"
+          >登录</van-button
+        >
       </van-tab>
       <van-tab title="注册" name="signup">
-        <van-field type="text" label="账号" v-model="user.account" placeholder="账号" />
-        <van-field type="password" label="密码" v-model="user.password" placeholder="密码" />
-        <van-field type="password" label="确认密码" v-model="comfirm_pwd" placeholder="再次输入密码" />
-        <van-button plain block class="submit-button" @click="signup">注册</van-button>
+        <van-field
+          type="text"
+          label="账号"
+          v-model="user.account"
+          placeholder="账号"
+        />
+        <van-field
+          type="password"
+          label="密码"
+          v-model="user.password"
+          placeholder="密码"
+        />
+        <van-field
+          type="password"
+          label="确认密码"
+          v-model="comfirm_pwd"
+          placeholder="再次输入密码"
+        />
+        <van-button plain block class="submit-button" @click="signup"
+          >注册</van-button
+        >
       </van-tab>
     </van-tabs>
   </div>
@@ -40,35 +69,34 @@ export default {
     return { 
       activeTab: 'login',
       user: {
-        account: "",
-        password: ""
+        account: '',
+        password: ''
       },
-      comfirm_pwd: "",
+      comfirm_pwd: '',
      
-      icon: require("../assets/logo.png")
-    };
+      icon: require('../assets/logo.png')
+    }
   },
   methods: {
     checked() {
-      let passed = this.user.account && this.user.password;
+      let passed = this.user.account && this.user.password
       if (!passed) {
-        this.$toast("请输入用户名和密码");
+        this.$toast('请输入用户名和密码')
       }
-      return passed;
+      return passed
     },
     verifyPwd() {
       if (!this.checked()) {
-        return;
+        return
       }
 
-      let passed = this.user.password === this.comfirm_pwd;
+      let passed = this.user.password === this.comfirm_pwd
       if (!passed) {
-        this.$toast("密码不一致");
+        this.$toast('密码不一致')
       }
-      return passed;
+      return passed
     },
     async login() {
-  
       if (!this.checked()) {
         return;
       }
@@ -76,22 +104,22 @@ export default {
       localStorage.token = res.data.token;
       this.$router.push("/");
       this.$notify({
-        type: "success",
-        message: "登录成功"
-      });
+        type: 'success',
+        message: '登录成功'
+      })
     },
     async signup() {
       if (!this.verifyPwd()) {
-        return;
+        return
       }
 
-      const res = await this.$http.post("signup", this.user);
-      this.activeTab = 'login';
+      const res = await this.$http.post('signup', this.user)
+      this.activeTab = 'login'
       this.$notify({
-        type: "success",
-        message: "注册成功，请登录"
-      });
+        type: 'success',
+        message: '注册成功，请登录'
+      })
+    }
     }
   }
-};
 </script>

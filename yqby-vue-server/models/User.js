@@ -2,12 +2,13 @@ const mongoose = require("mongoose");
 // define a schema to operate the userSchema
 const userSchema = new mongoose.Schema({
   account: { type: String },
-  password: { type: String }
+  password: { type: String },
+  token: { type: String }
 });
 // 定义模型models 来操作数据库
 
 // var UserModel = mongoose.model("User", userSchema);
-module.exports = mongoose.model('User',userSchema);
+module.exports = mongoose.model("User", userSchema);
 //通过模型来增删改查
 //1. 查询
 // UserModel.find({}, function(err, doc) {
@@ -31,5 +32,3 @@ module.exports = mongoose.model('User',userSchema);
 // });
 
 // 数据的更新
-
-

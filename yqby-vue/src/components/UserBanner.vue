@@ -14,13 +14,43 @@
         </div>
       </div>
       <div class="setting">
-        <i class="iconfont icon-setting"></i>
+        <i class="iconfont icon-setting" @click="showSetting"> </i>
       </div>
     </div>
+    <!-- 设置弹出 -->
+    <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      show: false,
+      actions: [{ name: '更换账号' }, { name: '注销' }, { name: '关于开发者' }]
+    }
+  },
+  methods: {
+    showSetting() {
+      this.show = true
+    },
+    onSelect(item) {
+      this.show = !this.show
+      const selectable = {
+        更换账号: () => {
+          this.$router.push('login')
+        },
+        注销: () => {
+          localStorage.removeItem('token')
+          this.$router.go(0)
+        },
+        关于开发者: () => {
+          this.$router.push('aboutdev')
+        }
+      }
+      selectable[item.name]()
+    }
+  }
+}
 </script>
 <style lang="stylus">
 @import '../assets/style/colors.styl';
