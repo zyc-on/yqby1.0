@@ -1,7 +1,7 @@
-const UserModel = require("../models/user");
+const UserModel = require("../../models/user");
 const jwt = require("jsonwebtoken");
 const assert = require("http-assert");
-const secret = require("../config").secret;
+const secret = require("../../config").secret;
 
 const login = async (req, res) => {
   const { account, password } = req.body;
@@ -28,17 +28,9 @@ let signup = async (req, res) => {
     message: "注册成功,请登录"
   });
 
-  // //to-do数据校验
-  // user = await UserModel.create(req.body)
-  // res.join({
-  //     status:'OK',
-  //     accoutn: user.account
-  // })
 };
 
-let getUserInfo = (req, res) => {};
 module.exports = {
   login,
   signup,
-  getUserInfo
 };
