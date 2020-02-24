@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UserBanner />
+    <UserBanner userInfo="{}" />
     <LikeCounts />
     <Sold />
   </div>
@@ -14,6 +14,8 @@ export default {
     if (!localStorage.token) {
       this.$toast('您还未登录哦')
       this.$router.push('/login')
+    } else {
+      //  var userInfo =  await this.$http.get('/user', localStorage.token)
     }
   },
   components: { UserBanner, LikeCounts, Sold }

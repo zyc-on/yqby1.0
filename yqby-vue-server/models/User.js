@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 // define a schema to operate the userSchema
 const userSchema = new mongoose.Schema({
   account: { type: String },
-  password: { type: String },
-  token: { type: String }
+  password: { type: String }
 });
 // 定义模型models 来操作数据库
 

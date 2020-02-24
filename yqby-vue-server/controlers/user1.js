@@ -13,21 +13,12 @@ const login = async (req, res) => {
   assert(password === user.password, 422, "密码错误");
 
   const token = jwt.sign({ id: user._id }, secret, { expiresIn: 3600 });
-  UserModel.update({ account }, { $set: { token } }, err => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("修改成功");
-    }
-  });
   res.status(299).send({ token });
 };
 
 let signup = async (req, res) => {
   const { account, password } = req.body;
   let user = await UserModel.findOne({ account });
-
-  console.log(user);
 
   assert(!user, 422, "该账号已注册");
 
@@ -45,7 +36,9 @@ let signup = async (req, res) => {
   // })
 };
 
+let getUserInfo = (req, res) => {};
 module.exports = {
   login,
-  signup
+  signup,
+  getUserInfo
 };
