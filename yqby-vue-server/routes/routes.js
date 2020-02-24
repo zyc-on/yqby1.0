@@ -2,7 +2,7 @@ module.exports = app => {
   const express = require("express");
   const jwt = require("jsonwebtoken");
   const assert = require("http-assert");
-  const { login, signup, getUserInfo } = require("../controlers/user1");
+  const { login, signup } = require("../controlers/user/login");
 
   const router = express.Router({
     mergeParams: true
@@ -10,37 +10,17 @@ module.exports = app => {
 
   const auth = require("../middleware/auth");
 
-  /**
-   * 登录
-   * @api {POST} /login
-   * @apiDescription 通过账户和密码登录
-   * @apiName login
-   * @apiParam
-   * @apiSampleRequest /api/users/5a45cefd080d7c39a036ca55
-   * @apiGroup User
-   * @apiVersion 1.0.0
-   */
-  app.post("/login", login);
 
-  /**
-   * 登录
-   * @api {POST} /login
-   * @apiDescription 通过账户和密码登录
-   * @apiName login
-   * @apiParam {Object} [address]         Optional nested address object.
-   * @apiParam {String} [address[street]] Optional street and number.
-   * @apiParam {String} [address[zip]]    Optional zip code.
-   * @apiParam {String} [address[city]]   Optional city.
-   * @apiSampleRequest /api/users/5a45cefd080d7c39a036ca55
-   * @apiGroup User
-   * @apiVersion 1.0.0
-   */
+  app.post("/login", login);
 
   app.post("/signup", signup);
 
-  app.get("/user", getUserInfo);
+  // app.get('/user/info')
+  // app.put('/user/info')
 
-  app.post("goods/info", auth(), async (req, res) => {});
+  // app.get("/user", getUserInfo);
+
+  // app.post("goods/info", auth(), async (req, res) => {});
 
   const multer = require("multer");
   const upload = multer({ dest: __dirname + "/../uploads/pics" });

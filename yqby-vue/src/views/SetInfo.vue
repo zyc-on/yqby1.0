@@ -35,7 +35,7 @@ export default {
       sex: 1,
       motto: '分享我的二手书',
       avatar:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1aCKekPOSd8UrJwB-ssnYev0QEYYa8hjhVaRMEvs3pMLq3Ig1kg&s',
+        'http://imgsrc.baidu.com/forum/w=580/sign=9f47c3d802087bf47dec57e1c2d2575e/f5698efc1e178a823bd38333f603738da877e802.jpg',
       school: '武汉工程大学',
       location: '泰塑10栋'
     }
