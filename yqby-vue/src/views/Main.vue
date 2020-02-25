@@ -34,8 +34,4 @@ export default {
 #a {
   height: 100vh;
 }
-
-#b{
-  height: 90vh;
-}
 </style>
