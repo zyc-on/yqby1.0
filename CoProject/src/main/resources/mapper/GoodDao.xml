@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.coproject.dao.GoodDao">
+
+    <resultMap type="com.example.coproject.entity.Good" id="GoodMap">
+        <result property="goodid" column="goodid" jdbcType="INTEGER"/>
+        <result property="pics" column="pics" jdbcType="VARCHAR"/>
+        <result property="oprice" column="oprice" jdbcType="INTEGER"/>
+        <result property="price" column="price" jdbcType="INTEGER"/>
+        <result property="rate" column="rate" jdbcType="INTEGER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="userid" column="userid" jdbcType="INTEGER"/>
+        <result property="categoryid" column="categoryid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GoodMap">
+        select
+          goodid, pics, oprice, price, rate, description, userid, categoryid
+        from coproject.good
+        where goodid = #{goodid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GoodMap">
+        select
+          goodid, pics, oprice, price, rate, description, userid, categoryid
+        from coproject.good
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="GoodMap">
+        select
+          goodid, pics, oprice, price, rate, description, userid, categoryid
+        from coproject.good
+        <where>
+            <if test="goodid != null">
+                and goodid = #{goodid}
+            </if>
+            <if test="pics != null and pics != ''">
+                and pics = #{pics}
+            </if>
+            <if test="oprice != null">
+                and oprice = #{oprice}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="rate != null">
+                and rate = #{rate}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="userid != null">
+                and userid = #{userid}
+            </if>
+            <if test="categoryid != null">
+                and categoryid = #{categoryid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="goodid" useGeneratedKeys="true">
+        insert into coproject.good(pics, oprice, price, rate, description, categoryid)
+        values (#{pics}, #{oprice}, #{price}, #{rate}, #{description}, #{categoryid})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update coproject.good
+        <set>
+            <if test="pics != null and pics != ''">
+                pics = #{pics},
+            </if>
+            <if test="oprice != null">
+                oprice = #{oprice},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="categoryid != null">
+                categoryid = #{categoryid},
+            </if>
+        </set>
+        where goodid = #{goodid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from coproject.good where goodid = #{goodid}
+    </delete>
+
+</mapper>
