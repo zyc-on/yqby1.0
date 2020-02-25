@@ -1,30 +1,35 @@
 <template>
+
   <div class="user-banner-wrapper">
-    <div class="user-banner">
-      <div class="portrait">
-        <img :src="avatar" ></img>
-      
-      </div>
-      <div class="info" @click="setInfo">
-        <div class="username">
-          <span>{{ name }}</span>
-        </div>
-        <div class="motto">
-          <i v-if="sex" class="iconfont icon-man"></i>
-          <i v-else class="iconfont icon-woman"></i>
+    <div class="mask">
+      <div class="user-banner">
 
-          <!-- <i class=`iconfont ${{sex=="male"?"icon-man":""icon-man"}`></i> -->
-
-          <span class="motto_content">{{ motto }}</span>
+        <div class="portrait">
+          <img :src="avatar" ></img>
+        
+        </div>
+        <div class="info" @click="setInfo">
+          <div class="username">
+            <span>{{ name }}</span>
+          </div>
+          <div class="motto">
+            <i v-if="sex" class="iconfont icon-man"></i>
+            <i v-else class="iconfont icon-woman"></i>
+  
+            <!-- <i class=`iconfont ${{sex=="male"?"icon-man":""icon-man"}`></i> -->
+  
+            <span class="motto_content">{{ motto }}</span>
+          </div>
+        </div>
+        <div class="setting">
+          <i class="iconfont icon-setting" @click="showSetting"> </i>
         </div>
       </div>
-      <div class="setting">
-        <i class="iconfont icon-setting" @click="showSetting"> </i>
-      </div>
+      <!-- 设置弹出 -->
+      <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
     </div>
-    <!-- 设置弹出 -->
-    <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
   </div>
+ 
 </template>
 <script>
 export default {
@@ -34,7 +39,7 @@ export default {
       name: '佛说不2',
       sex: 1,
       motto: '分享我的二手书',
-      avatar: 'http://imgsrc.baidu.com/forum/w=580/sign=9f47c3d802087bf47dec57e1c2d2575e/f5698efc1e178a823bd38333f603738da877e802.jpg',
+      avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3007002444,3106253283&fm=26&gp=0.jpg',
 
       // 设置选项
       show: false,
@@ -72,13 +77,34 @@ export default {
 </script>
 <style lang="stylus">
 @import '../assets/style/colors.styl';
+
 .user-banner-wrapper{
-  background-color #fff
-  padding 10px
+  position: relative;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  .mask{
+  width: 1000px;
+  height: 400px;  
+  margin-top:-250px;
+  margin-left: -300px;
+  border-radius: 100%;
+ background-image: linear-gradient(to right ,#00d2f1, #01a8ff);;
+  }
+ 
   .user-banner{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding 10px
     display flex
+    color: white;
     .portrait{
+      overflow: hidden;
       img{
+        border-radius: 100%;
         height 68px
       }
     }
@@ -105,4 +131,5 @@ export default {
     }
   }
 }
+
 </style>

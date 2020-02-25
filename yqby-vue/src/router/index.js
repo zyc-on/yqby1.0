@@ -9,6 +9,7 @@ import ChangeAvatar from '../views/ChangeAvatar.vue'
 import Home from '../views/Home.vue'
 import Cart from '../views/Cart.vue'
 import Message from '../views/Message.vue'
+import Search from '../views/Search.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,9 @@ const routes = [
     children: [
       // home
       { path: '/home', name: 'home', component: Home },
+      // search
+      { path: '/search', name: 'search', component: Search },
+
       // message
       { path: '/messages', name: 'message', component: Message },
       // 购物车
