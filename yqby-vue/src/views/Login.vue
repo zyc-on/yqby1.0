@@ -100,7 +100,7 @@ export default {
       if (!this.checked()) {
         return;
       }
-      const res = await this.$http.post("login", this.user)
+      const res = await this.$http.post("user/login", this.user)
       localStorage.token = res.data.token;
       this.$router.push("/");
       this.$notify({
@@ -113,7 +113,7 @@ export default {
         return
       }
 
-      const res = await this.$http.post('signup', this.user)
+      const res = await this.$http.post('user/reg', this.user)
       this.activeTab = 'login'
       this.$notify({
         type: 'success',

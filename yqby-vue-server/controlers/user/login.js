@@ -16,7 +16,7 @@ const login = async (req, res) => {
   res.status(299).send({ token });
 };
 
-let signup = async (req, res) => {
+let reg = async (req, res) => {
   const { account, password } = req.body;
   let user = await UserModel.findOne({ account });
 
@@ -31,5 +31,5 @@ let signup = async (req, res) => {
 
 module.exports = {
   login,
-  signup
+  reg
 };

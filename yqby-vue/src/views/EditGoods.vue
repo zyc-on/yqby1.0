@@ -48,41 +48,39 @@ export default {
     return {
       showPicker: false,
       goods: {
-        name: "2333",
-        oprice: "",
-        price: "",
-        description: "",
+        name: '2333',
+        oprice: '',
+        price: '',
+        description: '',
         imgList: []
       }
-    };
+    }
   },
   methods: {
     checkType(file) {
-      if (file.type !== "image/jpeg") {
-        this.$toast("请上传jpg格式图片");
-        return false;
+      if (file.type !== 'image/jpeg') {
+        this.$toast('请上传jpg格式图片')
+        return false
       }
-      return true;
+      return true
     },
 
     async upload(file) {
-      let params = new FormData();
-      params.append("file", file.file);
-      console.log(file);
+      let data = new FormData()
+      data.append('file', file.file)
+      console.log(file)
 
       let config = {
         headers: {
-          "Content-Type": "multipart/form-data"
+          'Content-Type': 'multipart/form-data'
         }
-      };
-      const res = await this.$http.post("upload/goods/pic", params, config);
-      console.log(res);
-      this.goods.imgList.pop();
-      this.goods.imgList.push({ url: res.data, isImage: true });
+      }
+      const res = await this.$http.post('goods/add/pics', data, config)
+      console.log(res)
+      this.goods.imgList.pop()
+      this.goods.imgList.push({ url: res.data, isImage: true })
     },
-    async submit() {
-      
-    }
+    async submit() {}
   }
-};
+}
 </script>
