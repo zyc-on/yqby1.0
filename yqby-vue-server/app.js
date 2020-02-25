@@ -2,10 +2,10 @@ const express = require("express");
 const config = require("./config");
 
 const app = express();
+
 app.use(require("cors")());
 app.use(express.json());
-app.use("/uploads", express.static(__dirname+'/uploads'));
-
+app.use(express.static("public"));
 require("./db")(app);
 require("./routes/routes")(app);
 
