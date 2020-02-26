@@ -16,13 +16,17 @@ const login = async (req, res) => {
   res.status(299).send({ token });
 };
 
+<<<<<<< Updated upstream
 let signup = async (req, res) => {
+=======
+const reg = async (req, res) => {
+>>>>>>> Stashed changes
   const { account, password } = req.body;
   let user = await UserModel.findOne({ account });
 
   assert(!user, 422, "该账号已注册");
 
-  user = await UserModel.create({ ...req.body, token: "" });
+  user = await UserModel.create({ ...req.body, newcome: true });
   res.status(299).send({
     account: user.account,
     message: "注册成功,请登录"

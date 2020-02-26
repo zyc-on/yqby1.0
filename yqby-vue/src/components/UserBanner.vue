@@ -18,7 +18,7 @@
   
             <!-- <i class=`iconfont ${{sex=="male"?"icon-man":""icon-man"}`></i> -->
   
-            <span class="motto_content">{{ motto }}</span>
+            <span class>
           </div>
         </div>
         <div class="setting">

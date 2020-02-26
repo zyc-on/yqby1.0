@@ -9,13 +9,13 @@
         <router-view></router-view>
       </div>
     </van-pull-refresh>
-    <BottomNav1></BottomNav1>
+    <BottomNav></BottomNav>
   </div>
 </template>
 <script>
-import BottomNav1 from './BottomNav1'
+import BottomNav from './BottomNav'
 export default {
-  components: { BottomNav1 },
+  components: { BottomNav },
   data() {
     return {
       isLoading: false
