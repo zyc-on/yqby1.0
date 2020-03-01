@@ -1,14 +1,16 @@
-const express = require('express')
-const auth = require('../middleware/auth')
-const { login, reg } = require('../controlers/user/login')
+const express = require("express");
 
+const { login, reg } = require("../controlers/user/login");
+const { getUser } = require("../controlers/user/index");
 let router = express.Router({
-    mergeParams: true
+  mergeParams: true
 });
 
-router.post('/login', login);
+router.post("/login", login);
 
-router.post('/reg', reg);
+router.post("/reg", reg);
+
+router.get("/userinfo", getUser);
 
 const multer = require("multer");
 const dest = "./uploads/avatar";
@@ -21,5 +23,3 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("file");
 
 module.exports = router;
-
-

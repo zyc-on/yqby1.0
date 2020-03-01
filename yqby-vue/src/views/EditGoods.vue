@@ -2,7 +2,13 @@
   <div>
     <van-nav-bar title="上架商品" left-text="返回" left-arrow />
     <van-field type="text" v-model="goods.name" label="商品名" placeholder />
-    <van-field readonly clickable label="商品类别" placeholder="选择商品类别" @click="showPicker = true" />
+    <van-field
+      readonly
+      clickable
+      label="商品类别"
+      placeholder="选择商品类别"
+      @click="showPicker = true"
+    />
     <van-popup v-model="showPicker" position="bottom">
       <van-picker :columns="columns" @change="onChange" />
     </van-popup>
@@ -24,7 +30,9 @@
       autosize
       placeholder="品牌型号，新旧程度，入手渠道，转手原因......"
     />
-    <van-button style="margin-top:10px" type="primary" block @click="submit">提交商品</van-button>
+    <van-button style="margin-top:10px" type="primary" block @click="submit"
+      >提交商品</van-button
+    >
   </div>
 </template>
 <style lang="stylus">
@@ -36,6 +44,11 @@
 }
 </style>
 <script>
+const citys = {
+  浙江: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+  福建: ['福州', '厦门', '莆田', '三明', '泉州']
+}
+
 export default {
   data() {
     return {
@@ -48,27 +61,27 @@ export default {
         imgList: []
       },
       categories: {},
-      columns: [
-      ]
+      columns: [],
+      columns1: [{ values: Object.keys(citys) }, { values: citys['浙江'] }]
     }
   },
   created() {
     this.fetchCategories()
   },
   methods: {
-    async fetchCategories() {
-      let res = await this.$http('goods/category')
-      res = res.data;
-      console.log(res);
-      res.forEach(item=>{
-        this.$set(this.categories,item.name,[])
-        item.sub.forEach(e=>{
-          this.categories[item.name].push(e.name)
-        })
+    fetchCategories() {
+      this.axios({ method: 'get', url: 'goods/category' }).then(res => {
+        res = res.data
+        console.log(res)
+        // res.forEach(item => {
+        //   this.$set(this.categories, item.name, [])
+        //   item.sub.forEach(e => {
+        //     this.categories[item.name].push(e.name)
+        //   })
+        // })
+        // this.columns.push({ values: Object.keys(this.categories) })
+        // console.log(this.categories)
       })
-      this.columns.push({values:Object.keys(this.categories)})
-      console.log(this.categories);
-      
     },
     onChange(picker, values) {
       picker.setColumnValues(1, this.categories[values[0]])

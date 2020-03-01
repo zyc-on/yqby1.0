@@ -21,10 +21,10 @@
         <!-- 商品列表 -->
         <div class="goodslist">
           <div class="_column">
-            <ShowGood v-for="index in 10"></ShowGood>
+            <ShowGood v-for="index in 10" :key="index"></ShowGood>
           </div>
           <div class="_column">
-            <ShowGood v-for="index in 10"></ShowGood>
+            <ShowGood v-for="index in 10" :key="index"></ShowGood>
           </div>
         </div>
       </van-tab>

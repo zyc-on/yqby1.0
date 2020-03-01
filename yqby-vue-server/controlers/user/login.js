@@ -22,7 +22,7 @@ let reg = async (req, res) => {
 
   assert(!user, 422, "该账号已注册");
 
-  user = await UserModel.create({ ...req.body, token: "" });
+  user = await UserModel.create({ ...req.body, newcome: true });
   res.status(299).send({
     account: user.account,
     message: "注册成功,请登录"

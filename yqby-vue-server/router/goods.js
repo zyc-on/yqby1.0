@@ -1,22 +1,20 @@
-
-const express = require('express')
-const auth = require('../middleware/auth')
+const express = require("express");
+const auth = require("../middleware/auth");
 
 let router = express.Router({
   mergeParams: true
-})
+});
 
-
-const multer = require('multer');
-const dest = './public/goods';
+const multer = require("multer");
+const dest = "./public/goods";
 const storage = multer.diskStorage({
   destination: dest,
-  filename: function (req, file, cb) {
+  filename: function(req, file, cb) {
     cb(null, Date.now() + file.originalname);
   }
 });
-const upload = multer({ storage: storage }).single('file');
-router.post('/add/pics', auth(), async (req, res) => {
+const upload = multer({ storage: storage }).single("file");
+router.post("/add/pics", auth(), async (req, res) => {
   upload(req, res, err => {
     if (err) {
       console.log(err);
@@ -29,16 +27,14 @@ router.post('/add/pics', auth(), async (req, res) => {
 
       res.send(fileUrl);
     }
-  })
-})
+  });
+});
 
-
-const Category = require('../models/Category')
-const SubCategory = require('../models/SubCategory')
-router.get('/category', async (req, res) => {
-  const items = await Category.find().populate('sub')
+const Category = require("../models/Category");
+const SubCategory = require("../models/SubCategory");
+router.get("/category", async (req, res) => {
+  const items = await Category.find().populate("sub");
   console.log(items);
-  res.send(items)
-
-})
+  res.send(items);
+});
 module.exports = router;
