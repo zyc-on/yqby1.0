@@ -8,7 +8,7 @@ let router = express.Router({
 
 
 const multer = require('multer');
-const dest =  './public/goods';
+const dest = './public/goods';
 const storage = multer.diskStorage({
   destination: dest,
   filename: function (req, file, cb) {
@@ -21,15 +21,24 @@ router.post('/add/pics', auth(), async (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      const {filename} = req.file;
+      const { filename } = req.file;
       console.log(req.file);
-      
+
       const fileUrl = `http://localhost:2999/goods/${filename}`;
       console.log(fileUrl);
-      
-        res.send(fileUrl);
+
+      res.send(fileUrl);
     }
   })
 })
 
+
+const Category = require('../models/Category')
+const SubCategory = require('../models/SubCategory')
+router.get('/category', async (req, res) => {
+  const items = await Category.find().populate('sub')
+  console.log(items);
+  res.send(items)
+
+})
 module.exports = router;

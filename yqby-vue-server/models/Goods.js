@@ -8,6 +8,7 @@ const schema = new mongoose.Schema({
     rate: { type: Number },
     description: { type: String },
     category: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' },
+    subCategory: { type: mongoose.SchemaTypes.ObjectId, ref: 'SubCategory' },
     uid: { type: mongoose.SchemaTypes.ObjectId, ref: 'User' },
 })
 module.exports = mongoose.model('Goods', schema)

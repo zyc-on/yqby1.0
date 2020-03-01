@@ -26,7 +26,7 @@
 const testProps = {
   name: {
     type: String,
-    default: '深入浅出vueJS '
+    default: '深入浅出Vue.js '
   },
   pic: {
     type: String,

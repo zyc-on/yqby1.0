@@ -2,16 +2,9 @@
   <div>
     <van-nav-bar title="上架商品" left-text="返回" left-arrow />
     <van-field type="text" v-model="goods.name" label="商品名" placeholder />
-    <van-field
-      readonly
-      clickable
-      label="商品类别"
-      :value="value"
-      placeholder="选择商品类别"
-      @click="showPicker = true"
-    />
+    <van-field readonly clickable label="商品类别" placeholder="选择商品类别" @click="showPicker = true" />
     <van-popup v-model="showPicker" position="bottom">
-      <div>To Do:选择类别</div>
+      <van-picker :columns="columns" @change="onChange" />
     </van-popup>
     <div class="tips">上传商品图片(jpg)，最多5张</div>
     <van-uploader
@@ -53,10 +46,33 @@ export default {
         price: '',
         description: '',
         imgList: []
-      }
+      },
+      categories: {},
+      columns: [
+      ]
     }
   },
+  created() {
+    this.fetchCategories()
+  },
   methods: {
+    async fetchCategories() {
+      let res = await this.$http('goods/category')
+      res = res.data;
+      console.log(res);
+      res.forEach(item=>{
+        this.$set(this.categories,item.name,[])
+        item.sub.forEach(e=>{
+          this.categories[item.name].push(e.name)
+        })
+      })
+      this.columns.push({values:Object.keys(this.categories)})
+      console.log(this.categories);
+      
+    },
+    onChange(picker, values) {
+      picker.setColumnValues(1, this.categories[values[0]])
+    },
     checkType(file) {
       if (file.type !== 'image/jpeg') {
         this.$toast('请上传jpg格式图片')
@@ -64,12 +80,10 @@ export default {
       }
       return true
     },
-
     async upload(file) {
       let data = new FormData()
       data.append('file', file.file)
       console.log(file)
-
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data'
