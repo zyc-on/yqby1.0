@@ -44,11 +44,7 @@
 }
 </style>
 <script>
-const citys = {
-  浙江: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
-  福建: ['福州', '厦门', '莆田', '三明', '泉州']
-}
-
+let initCat = {}
 export default {
   data() {
     return {
@@ -58,33 +54,31 @@ export default {
         oprice: '',
         price: '',
         description: '',
+        category: '',
         imgList: []
       },
-      categories: {},
-      columns: [],
-      columns1: [{ values: Object.keys(citys) }, { values: citys['浙江'] }]
+      categories: [],
+
+      columns: []
     }
   },
   created() {
-    this.fetchCategories()
+    this.axios({ method: 'get', url: 'goods/category' }).then(res => {
+      // 用于查询id
+      this.categories = res.data
+      res.data.forEach(item => {
+        initCat[item.name] = [...item.sub.map(e => e.name)]
+      })
+      this.columns.push(
+        { values: Object.keys(initCat) },
+        { values: initCat['书籍'] }
+      )
+    })
   },
   methods: {
-    fetchCategories() {
-      this.axios({ method: 'get', url: 'goods/category' }).then(res => {
-        res = res.data
-        console.log(res)
-        // res.forEach(item => {
-        //   this.$set(this.categories, item.name, [])
-        //   item.sub.forEach(e => {
-        //     this.categories[item.name].push(e.name)
-        //   })
-        // })
-        // this.columns.push({ values: Object.keys(this.categories) })
-        // console.log(this.categories)
-      })
-    },
-    onChange(picker, values) {
-      picker.setColumnValues(1, this.categories[values[0]])
+    onChange(picker, values, index) {
+      picker.setColumnValues(1, initCat[values[0]])
+      console.log(`${values}被选中`)
     },
     checkType(file) {
       if (file.type !== 'image/jpeg') {
