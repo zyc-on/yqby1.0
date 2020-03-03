@@ -34,10 +34,18 @@ class Success extends HttpException {
         this.errorCode = errorCode || 0
     }
 }
-
+class Forbbiden extends HttpException {
+    constructor(msg, errorCode) {
+        super()
+        this.msg = msg || '禁止访问'
+        this.errorCode = errorCode || 1000
+        this.statusCode = 403
+    }
+}
 module.exports = {
     HttpException,
     ParameterException,
     UserVerifyException,
-    Success
+    Success,
+    Forbbiden
 }

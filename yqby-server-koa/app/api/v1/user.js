@@ -1,10 +1,11 @@
 
 const Router = require('koa-router')
 
-
+const Auth = require('../../../middlewares/auth')
 const { HttpException, ParameterException, Success } = require('../../../core/http-exception')
 const { PositiveIntValidator, LoginValidator, RegisterValidator } = require('../../validators/validator')
 const User = require('../../../models/User')
+const { generateToken } = require('../../lib/token')
 
 const router = new Router({
     prefix: '/user'
@@ -14,13 +15,14 @@ const router = new Router({
 router.post('/login', async (ctx, next) => {
 
     const v = await new LoginValidator().validate(ctx)
-    const res = await login(v.get('body.account'),v.get('body.password'))
+    const token = await login(v.get('body.account'), v.get('body.password'))
     ctx.body = {
-        token: '2333'
+        token
     }
 })
 const login = async (account, password) => {
     const user = await User.verifyUser(account, password)
+    return generateToken(user.id, Auth.USER)
 }
 
 router.post('/register', async (ctx) => {

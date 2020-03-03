@@ -45,7 +45,7 @@ User.init({
     motto: Sequelize.STRING,
 }, {
     sequelize,
-    tableName: 'user'
+    modelName: 'user'
 })
 
 module.exports = User

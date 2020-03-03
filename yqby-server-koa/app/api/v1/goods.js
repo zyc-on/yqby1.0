@@ -1,11 +1,14 @@
 const Router = require('koa-router')
 
-const router = new Router()
+const Auth = require('../../../middlewares/auth')
 
-router.get('/goods', async (ctx, next) => {
-    ctx.body = {
-        key: 'goods'
-    }
+const router = new Router({
+    prefix: '/goods'
 })
+
+router.get('/test', new Auth(8).m, async (ctx, next) => {
+    ctx.body = ctx.auth.id
+})
+
 
 module.exports = router
