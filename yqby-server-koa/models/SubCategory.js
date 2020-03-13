@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 
-class Category extends Sequelize.Model {
+
+class SubCategory extends Sequelize.Model {
     static init(sequelize, DataTypes) {
         return super.init(
             {
@@ -16,17 +17,18 @@ class Category extends Sequelize.Model {
             },
             {
                 sequelize,
-                modelName: 'category'
+                modelName: 'subcategory'
             }
         )
     }
 
     static associate(models) {
-        this.hasMany(models.SubCategory)
+        this.belongsTo(models.Category)
     }
-
 }
 
-module.exports = Category
 
 
+
+
+module.exports = SubCategory

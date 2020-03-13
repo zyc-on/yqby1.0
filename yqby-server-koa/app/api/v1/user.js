@@ -1,15 +1,26 @@
 
 const Router = require('koa-router')
+const Body = require('koa-body')
 
 const Auth = require('../../../middlewares/auth')
 const { HttpException, ParameterException, Success } = require('../../../core/http-exception')
 const { PositiveIntValidator, LoginValidator, RegisterValidator } = require('../../validators/validator')
-const User = require('../../../models/User')
+const { User, Category, SubCategory } = require('../../../core/db')
 const { generateToken } = require('../../lib/token')
 
 const router = new Router({
     prefix: '/user'
 })
+
+router.use(Body({
+    multipart: true,
+    formidable: {
+        uploadDir: process.cwd() + '/static/avatar',
+        keepExtensions: true
+    }
+}))
+
+
 
 
 router.post('/login', async (ctx, next) => {
@@ -38,6 +49,29 @@ router.post('/register', async (ctx) => {
     throw new Success('注册成功')
 })
 
+
+router.post('/test', async (ctx) => {
+    // const res = await SubCategory.create({
+    //     name: 'apple1',
+    //     category_id: 1
+    // })
+
+    // const res = await Category.findAll({
+    //     include: [{ model: SubCategory }]
+    // })
+
+
+
+
+    const sc = await SubCategory.create({
+        name: '计算机2',
+        categoryId: 1
+    })
+
+
+    ctx.body = sc
+
+})
 
 // router.get('/test', async (ctx, next) => {
 //     const error = new ParameterException()

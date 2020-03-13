@@ -4,17 +4,20 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "axios": "^0.19.2",
     "basic-auth": "^2.0.1",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^8.0.8",
     "koa-static": "^5.0.0",

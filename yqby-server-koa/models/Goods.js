@@ -1,31 +1,35 @@
-const { Sequelize, Model } = require('sequelize')
-const { sequelize } = require('../core/db')
+const Sequelize = require('sequelize')
 
-const { SubCategory } = require('./Category')
-const User = require('./User')
+class Goods extends Sequelize.Model {
 
-
-class Goods extends Model {
-
+    static init(sequelize, DataTypes) {
+        return super.init(
+            {
+                id: {
+                    type: DataTypes.INTEGER,
+                    primaryKey: true,
+                    autoIncrement: true
+                },
+                name: DataTypes.STRING,
+                images: DataTypes.STRING,
+                oprice: DataTypes.INTEGER,
+                price: DataTypes.INTEGER,
+                rate: DataTypes.TINYINT,
+                description: DataTypes.STRING,
+            }, {
+            sequelize,
+            modelName: 'goods'
+        }
+        )
+    }
+    static associate(models) {
+        this.belongsTo(models.SubCategory)
+        this.belongsTo(models.User)
+    }
 }
 
-Goods.init({
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    name: Sequelize.STRING,
-    images: Sequelize.STRING,
-    oprice: Sequelize.INTEGER,
-    price: Sequelize.INTEGER,
-    rate: Sequelize.TINYINT,
-    description: Sequelize.STRING,
-}, {
-    sequelize,
-    modelName: 'goods'
-})
+module.exports = Goods
 
-Goods.belongsTo(User)
-Goods.belongsTo(SubCategory)
+
+
 
