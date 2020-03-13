@@ -3,7 +3,7 @@ import Vue from 'vue'
 import router from './router'
 
 const http = axios.create({
-    baseURL: 'http://localhost:2999'
+    baseURL: 'http://localhost:3000'
 })
 
 http.interceptors.request.use(config => {
@@ -14,21 +14,21 @@ http.interceptors.request.use(config => {
 })
 
 http.interceptors.response.use(res => {
-    if(res.status===299){
+    if(res.status.toString().startsWith("2")){
         Vue.prototype.$notify({
             type:'success',
-            message:res.data.message
+            message:res.data.msg
         })
     }
     return res
 }, err => {
     // console.log(err);
 
-    if (err.response.data.message) {
-        console.log(err.response.data.message);
+    if (err.response.data.msg) {
+        console.log(err.response.data.msg);
         Vue.prototype.$notify({
             type: 'danger',
-            message: err.response.data.message
+            message: err.response.data.msg
         })
     }
     if (err.response.status === 401) {

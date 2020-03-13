@@ -96,10 +96,10 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       }
-      const res = await this.$http.post('goods/add/pics', data, config)
+      const res = await this.$http.post('goods/add/images', data, config)
       console.log(res)
-      this.goods.imgList.pop()
-      this.goods.imgList.push({ url: res.data, isImage: true })
+      // this.goods.imgList.pop()
+      // this.goods.imgList.push({ url: res.data, isImage: true })
     },
     async submit() {}
   }
