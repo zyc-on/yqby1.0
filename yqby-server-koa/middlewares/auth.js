@@ -5,6 +5,9 @@ const { Forbbiden } = require('../core/http-exception')
 
 
 class Auth {
+
+    //level表示当前认证接口的权限等级，默认为1,普通登录用户的默认权限级别为8
+
     constructor(level) {
         this.level = level || 1
         Auth.USER = 8
