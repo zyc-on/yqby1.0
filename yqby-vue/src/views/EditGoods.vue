@@ -50,12 +50,14 @@ export default {
     return {
       showPicker: false,
       goods: {
-        name: '2333',
-        oprice: '',
-        price: '',
-        description: '',
-        category: '',
-        imgList: []
+        name: '测试商品',
+        images:'images/goods/112.jpg',
+        rate:'8',
+        oprice: '100',
+        price: '50',
+        description: '测试描述',
+        subcategoryId: '1',
+        
       },
       categories: [],
 
@@ -96,12 +98,16 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       }
-      const res = await this.$http.post('goods/add/pics', data, config)
+      const res = await this.$http.post('goods/add/images', data, config)
       console.log(res)
-      this.goods.imgList.pop()
-      this.goods.imgList.push({ url: res.data, isImage: true })
+      // this.goods.imgList.pop()
+      // this.goods.imgList.push({ url: res.data, isImage: true })
     },
-    async submit() {}
+    async submit() {
+      const res = await this.$http.post('goods/add',this.goods)
+      console.log(res);
+      
+    }
   }
 }
 </script>

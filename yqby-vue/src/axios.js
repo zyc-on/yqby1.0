@@ -113,7 +113,7 @@ axios.interceptors.response.use(
   }
 )
 
-axios.defaults.baseURL = 'http://localhost:2999/'
+axios.defaults.baseURL = 'http://localhost:3000/'
 
 export default instance => {
   instance.prototype.axios = data => {

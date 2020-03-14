@@ -11,14 +11,14 @@ app.use(express.static("public"));
 require("./db")(app);
 
 app.listen(config.port, () => {
-  console.log(`http://localhost:${config.port}`);
+	console.log(`http://localhost:${config.port}`);
 });
 
 app.use("/user", require("./router/user"));
 app.use("/goods", require("./router/goods"));
 
 app.use(async (err, req, res, next) => {
-  res.status(err.statusCode || 500).send({
-    message: err.message
-  });
+	res.status(err.statusCode || 500).send({
+		message: err.message
+	});
 });
