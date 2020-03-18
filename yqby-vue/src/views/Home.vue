@@ -46,8 +46,8 @@ export default {
       active: '0',
       issticky: true,
       images: [
-        'http://localhost:2999/banners/banner1.png',
-        'http://localhost:2999/banners/banner2.jpg'
+        'http://localhost:3000/banners/banner1.jpg',
+        'http://localhost:3000/banners/banner2.jpg'
       ]
     }
   },
