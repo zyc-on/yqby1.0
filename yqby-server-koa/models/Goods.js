@@ -31,6 +31,7 @@ class Goods extends Sequelize.Model {
     );
   }
   static associate(models) {
+    this.belongsTo(models.Category)
     this.belongsTo(models.SubCategory);
     this.belongsTo(models.User);
   }
