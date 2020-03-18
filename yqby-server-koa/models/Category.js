@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 
+
 class Category extends Sequelize.Model {
     static init(sequelize, DataTypes) {
         return super.init(

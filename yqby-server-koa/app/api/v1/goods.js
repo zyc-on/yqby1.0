@@ -31,20 +31,15 @@ router.use(
 
 
 router.get("/latest", async ctx => {
-  ctx.body = await Goods.findAll({
-    limit: 8,
-    attributes:{exclude:["deletedAt"]},
-    include: [
-      {model: User, attributes: ["id", "username"]},
-      {model: SubCategory, attributes: ["id", "name"]},
-      {model: Category, attributes: ["id", "name"]}
-    ],
-    order:[
-      ["updatedAt","DESC"]
-    ]
-  })
+  let {page} = ctx.query
+  ctx.body = await Goods.getLatestGoods(page)
 })
 
+
+router.get("/search", async ctx => {
+  let {keyword, page = 1,order="DESC",by="updatedAt"} = ctx.query
+  ctx.body = await Goods.findGoodsByKeyword(keyword, page,order,by)
+})
 
 router.post("/add/images", async ctx => {
   const url = ctx.request.files.file.path
@@ -65,21 +60,16 @@ router.post("/add", new Auth().m, async ctx => {
   // let goods = ctx.request.body;
   // goods.userId = ctx.auth.id;
   let goods = Object.assign(ctx.request.body, {userId: ctx.auth.id});
-  
   goods = await Goods.create(goods);
-  
   // throw new Success();
-  
   ctx.body = goods;
   
-  // ctx.body =  v.get("body.name")
 });
 
 //TODO 提取公共代码
 router.get("/:id", async ctx => {
   const v = await new IdValidator().validate(ctx);
-  const goods = await Goods.verifyGoods(v.get("path.id"));
-  ctx.body = goods;
+  ctx.body = await Goods.verifyGoods(v.get("path.id"));
 });
 
 router.put("/:id", new Auth().m, async ctx => {
