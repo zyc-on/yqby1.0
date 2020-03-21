@@ -37,10 +37,12 @@
 
 <script>
 import ShowGood from '../components/ShowGood.vue'
+import { deleteGood } from '../api/goods'
 export default {
   components: {
     ShowGood
   },
+  mounted() {},
   data() {
     return {
       active: '0',
