@@ -41,15 +41,15 @@ router.get("/search", async ctx => {
   ctx.body = await Goods.findGoodsByKeyword(keyword, page,order,by)
 })
 
-router.post("/add/images", async ctx => {
-  const url = ctx.request.files.file.path
+router.post("/images", async ctx => {
+  ctx.body = ctx.request.files.file.path
     .split("static")[1]
     .split("\\")
     .join("/");
 });
 
 //TODO若分类不存在报错问题  √ Done
-router.post("/add", new Auth().m, async ctx => {
+router.post("/", new Auth().m, async ctx => {
   const v = await new GoodsValidator().validate(ctx);
   
   //TODO body中可能有其他字段    Done 其他字段本来就不会被保存(⊙o⊙)…
@@ -99,5 +99,6 @@ router.delete("/:id", new Auth().m, async ctx => {
 
 router.get("/test", new Auth(8).m, async (ctx, next) => {
 });
+
 
 module.exports = router;

@@ -102,7 +102,9 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       }
-      const res = await this.$http.post('/add/images', data, config)
+      const res = await this.$http.post('/goods/images', data, config)
+      console.log(res);
+      
     },
     submit() {
       console.log(this.goods)
