@@ -113,7 +113,7 @@ export default {
         return
       }
 
-      const res = await this.$http.post('user/reg', this.user)
+      const res = await this.$http.post('user/register', this.user)
       this.activeTab = 'login'
       this.$notify({
         type: 'success',

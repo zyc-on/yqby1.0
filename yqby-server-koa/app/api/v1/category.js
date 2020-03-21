@@ -1,15 +1,12 @@
-
 const Router = require("koa-router");
 
 const Auth = require("../../../middlewares/auth");
 const { Category, SubCategory } = require("../../../core/db");
 
-
 const router = new Router();
 
-
 router.get("/category", async ctx => {
-  // console.log("categories");
+  //
   // ctx.body = "categories"
 
   const categories = await Category.findAll({
@@ -21,7 +18,6 @@ router.get("/category", async ctx => {
       }
     ]
   });
-  console.log(categories);
 
   ctx.body = categories;
 });
