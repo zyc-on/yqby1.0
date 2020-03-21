@@ -86,9 +86,9 @@ router.post("/test", async ctx => {
 
 // router.post(':id/detail', async (ctx, next) => {
 //     const v = await new PositiveIntValidator().validate(ctx)
-//     console.log(v.get('path.id'));
-//     console.log(v.get('path.id'), parsed = false);
-//     console.log(v.get('header'));
+//
+//
+//
 //     ctx.body = 'success'
 
 // })

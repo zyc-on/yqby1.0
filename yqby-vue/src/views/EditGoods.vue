@@ -8,6 +8,7 @@
       label="商品类别"
       placeholder="选择商品类别"
       @click="showPicker = true"
+      :value="category"
     />
     <van-popup v-model="showPicker" position="bottom">
       <van-picker :columns="columns" @change="onChange" />
@@ -45,43 +46,46 @@
 </style>
 <script>
 let initCat = {}
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data() {
     return {
       showPicker: false,
+      // 表单分类
+      category: '未分类',
       goods: {
-        name: '测试商品',
-        images:'images/goods/112.jpg',
-        rate:'8',
-        oprice: '100',
-        price: '50',
-        description: '测试描述',
+        name: '',
+        images: '',
+        oprice: '',
+        price: '',
+        rate: '',
+        description: '',
         subcategoryId: '1',
-        
-      },
-      categories: [],
-
-      columns: []
+        categoryId: '1'
+      }
     }
   },
   created() {
-    this.axios({ method: 'get', url: 'goods/category' }).then(res => {
-      // 用于查询id
-      this.categories = res.data
-      res.data.forEach(item => {
-        initCat[item.name] = [...item.sub.map(e => e.name)]
-      })
-      this.columns.push(
-        { values: Object.keys(initCat) },
-        { values: initCat['书籍'] }
-      )
-    })
+    this.getAllCategories()
+  },
+  computed: {
+    ...mapGetters('categories', ['sub', 'columns', 'getSubId', 'getMainId'])
   },
   methods: {
+    ...mapActions('goods', ['addGood']),
+    ...mapActions('categories', ['getAllCategories']),
+
+    // 分类
     onChange(picker, values, index) {
-      picker.setColumnValues(1, initCat[values[0]])
-      console.log(`${values}被选中`)
+      // 动态改变
+      picker.setColumnValues(1, this.sub(values[0]))
+      this.category = values.join(',')
+      // 获得Id
+      this.goods.subcategoryId = this.getSubId(values[1])
+      this.goods.categoryId = this.getMainId(values[0])
     },
+
+    // 图片格式化
     checkType(file) {
       if (file.type !== 'image/jpeg') {
         this.$toast('请上传jpg格式图片')
@@ -89,24 +93,21 @@ export default {
       }
       return true
     },
+
     async upload(file) {
       let data = new FormData()
       data.append('file', file.file)
-      console.log(file)
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }
-      const res = await this.$http.post('goods/add/images', data, config)
-      console.log(res)
-      // this.goods.imgList.pop()
-      // this.goods.imgList.push({ url: res.data, isImage: true })
+      const res = await this.$http.post('/add/images', data, config)
     },
-    async submit() {
-      const res = await this.$http.post('goods/add',this.goods)
-      console.log(res);
-      
+    submit() {
+      console.log(this.goods)
+
+      this.addGood(this.goods)
     }
   }
 }
