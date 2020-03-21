@@ -16,7 +16,7 @@ router.post("/login", async ctx => {
     ctx.request.body.password
   );
   ctx.body = {
-    msg:"登录成功",
+    msg: "登录成功",
     token
   };
 });
@@ -34,4 +34,27 @@ router.post("/register", async ctx => {
   const r = await Admin.create(admin);
   throw new Success("注册成功");
 });
+
+router.get("menu", async ctx => {
+  const menu = [
+    {
+      id: 1,
+      name: "分类管理",
+      path: null,
+      children: [
+        {
+          id: 2,
+          name: "分类列表",
+          path: null
+        },
+        {
+          id: 3,
+          name: "新增分类",
+          path: null
+        }
+      ]
+    }
+  ];
+});
+
 module.exports = router;

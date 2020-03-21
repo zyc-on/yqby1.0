@@ -12,7 +12,7 @@ instance.interceptors.request.use(config => {
 })
 
 instance.interceptors.response.use(res => {
-  if (res.status >= 200 && res.status < 300) {
+  if (res.data.msg && res.status >= 200 && res.status < 300) {
     Message.success(res.data.msg)
   }
   return res

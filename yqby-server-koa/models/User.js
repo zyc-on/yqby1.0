@@ -32,7 +32,7 @@ class User extends Sequelize.Model {
 
                 account: {
                     type: DataTypes.STRING,
-                    unique: true
+                    unique: true,
                 },
                 password: {
                     type: DataTypes.STRING,
@@ -42,9 +42,15 @@ class User extends Sequelize.Model {
                         this.setDataValue('password', pwd)
                     }
                 },
-                username: DataTypes.STRING,
+                username: {
+                    type:DataTypes.STRING,
+                    defaultValue:"大坏蛋阿三"
+                },
                 sex: DataTypes.BOOLEAN,
-                avatar: DataTypes.STRING,
+                avatar: {
+                    type:DataTypes.STRING,
+                    defaultValue:"/avatar/112.jpg"
+                },
                 school: DataTypes.STRING,
                 location: DataTypes.STRING,
                 motto: DataTypes.STRING,
