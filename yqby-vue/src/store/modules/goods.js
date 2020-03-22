@@ -8,6 +8,15 @@ export default {
     introGoods: [], // all goods showed in the home view
     userGoods: [] // 用户的所有商品
   },
+  getters: {
+    left({ introGoods }) {
+      return introGoods.slice(0, introGoods.length / 2)
+    },
+    right({ introGoods }) {
+      return introGoods.slice(introGoods.length / 2)
+    }
+  },
+
   mutations: {
     [getIntroGoods](state, _introGoods) {
       state.introGoods = _introGoods
@@ -32,6 +41,11 @@ export default {
       goodsApi.addGood(_good).then(res => {
         if (res.status) commit(getIntroGoods, _good)
         else console.log('ops  ')
+      })
+    },
+    [getIntroGoods]({ commit }) {
+      goodsApi.getIntroGoods().then(res => {
+        if (res.status) commit(getIntroGoods, res.data)
       })
     }
   }

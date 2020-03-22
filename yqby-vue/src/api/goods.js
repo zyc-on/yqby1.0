@@ -4,7 +4,7 @@
 import http from '../http'
 
 // 获取推荐商品
-export const getIntroGoods = () => http.get('/goods')
+export const getIntroGoods = () => http.get('/goods/latest')
 // 获取全部商品
 export const getUserGoods = () => http.get(`/goods/`)
 

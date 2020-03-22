@@ -1,12 +1,12 @@
 <template>
-  <div class="good">
+  <div class="good" @click="handleClick">
     <div class="pic">
-      <img :src="pic" alt="" />
+      <img :src="`http://localhost:3000${images}`" alt="" />
     </div>
     <div class="des">
       <h3 class="name">{{ name }}</h3>
       <div class="cat">
-        <span> {{ category }}</span>
+        <span> {{ subcategory.name }}</span>
       </div>
       <div class="bottom">
         <div class="price">
@@ -16,62 +16,49 @@
           <del class="oprice">{{ oprice }}</del>
         </div>
         <div class="owner">
-          <img :src="avatar" alt="" />
+          <img :src="`http://localhost:3000${images}`" alt="" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-const testProps = {
-  name: {
-    type: String,
-    default: '深入浅出Vue.js '
-  },
-  pic: {
-    type: String,
-    default:
-      'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1122195463,3596828118&fm=15&gp=0.jpg'
-  },
-  oprice: { type: Number, default: 39.99 },
-  price: { type: Number, default: 9.99 },
-  rate: { type: Number, default: 9 },
-  description: { type: String, default: '买了都没看一手书' },
-  category: { type: String, default: '计算机书籍' },
-  uid: {
-    type: Number,
-    default: 123
-  },
-  avatar: {
-    type: String,
-    default:
-      'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3007002444,3106253283&fm=26&gp=0.jpg'
-  }
-}
 const props = {
+  id: Number,
   name: String,
-  pics: String,
+  images: String,
   oprice: Number,
   price: Number,
   rate: Number,
   description: String,
-  category: String,
-  uid: Number
+  category: Object,
+  categoryId: Number,
+  subcategory: Object,
+  subcategoryId: Number,
+  avatar: String,
+  userId: Number
 }
 export default {
   data() {
-    return {
-      //   style: {
-      //     height: this.getARandomHeight(150, 250) + 'px'
-      //   }
-    }
+    return {}
   },
-  props: testProps,
-  created() {},
+  props: props,
+  created() {
+    console.log('haha')
+  },
   methods: {
     getARandomHeight(start, end) {
       const num = Math.random()
       return Math.ceil(start + (end - start) * num)
+    },
+    //点击跳转详情
+    handleClick() {
+      this.$router.push({
+        name: `detail`,
+        params: {
+          id: this.id
+        }
+      })
     }
   }
 }

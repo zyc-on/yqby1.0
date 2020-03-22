@@ -21,10 +21,20 @@
         <!-- 商品列表 -->
         <div class="goodslist">
           <div class="_column">
-            <ShowGood v-for="index in 10" :key="index"></ShowGood>
+            <ShowGood
+              v-for="(item, index) in left"
+              :key="index"
+              v-bind="item"
+              @click="handleClick(item.id)"
+            ></ShowGood>
           </div>
           <div class="_column">
-            <ShowGood v-for="index in 10" :key="index"></ShowGood>
+            <ShowGood
+              v-for="(item, index) in right"
+              :key="index"
+              v-bind="item"
+              @click="handleClick(item.id)"
+            ></ShowGood>
           </div>
         </div>
       </van-tab>
@@ -37,12 +47,15 @@
 
 <script>
 import ShowGood from '../components/ShowGood.vue'
-import { deleteGood } from '../api/goods'
+import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
   components: {
     ShowGood
   },
-  mounted() {},
+  created() {
+    this.getIntroGoods()
+  },
+
   data() {
     return {
       active: '0',
@@ -53,9 +66,14 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters('goods', ['left', 'right'])
+  },
+
   methods: {
+    ...mapActions('goods', ['getIntroGoods']),
+    // 搜索框
     onfocus() {
-      console.log('focus')
       this.$router.push({ path: 'search' })
     }
   }

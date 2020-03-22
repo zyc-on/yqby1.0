@@ -10,7 +10,7 @@ import Home from '../views/Home.vue'
 import Cart from '../views/Cart.vue'
 import Message from '../views/Message.vue'
 import Search from '../views/Search.vue'
-
+import GoodDetail from '../views/GoodDetail.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -65,7 +65,13 @@ const routes = [
     component: AddGoods,
     props: true
   },
-
+  // 商品详情页
+  {
+    path: '/detail',
+    name: 'detail',
+    component: GoodDetail,
+    props: true
+  },
   // 关于开发者
   {
     path: '/aboutdev',
